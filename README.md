@@ -21,3 +21,11 @@
 
 # Contributing:
 Contributions to this project are welcome! If you have any ideas, improvements, or bug fixes, feel free to submit a pull request. Please ensure that your contributions align with the project's goals and follow best practices.
+
+# Authors
+- [@Mohamed Abdullhaleam](https://github.com/Mohamedabdullhaleam)
+- [@Fareda Elsayed]( https://github.com/FaredaElsayed)
+- [@Gehad Alaa ](https://github.com/Gehad799)
+- [@Roaa Gawish ](https://github.com/roaagawish)
+- [@Alaa Wahba](https://github.com/alaawahba13)
+- [@Mohamed Khodary](https://github.com/moekhodry11)

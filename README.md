@@ -1,4 +1,4 @@
-# IOT_project_healthmonitoring
+# Health-Monitoring-Project
 
 This is an IoT project designed for monitoring the heart rate, oxygen level and temperature of an individual. The system consists of a MAX30100 sensor for detecting heart rate and oxygen level and a LM35 sensor for measuring temperature. The readings from the sensors are sent to a server using WebSockets protocol.
 

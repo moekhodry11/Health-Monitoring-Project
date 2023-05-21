@@ -45,7 +45,9 @@ The following variables can be configured in the code:
 ### Monthly Report
 
 
-Uploading 2023-05-21 22-29-23.mp4…
+
+https://github.com/moekhodry11/Health-Monitoring-Project/assets/86708003/4a970ce3-bf14-4133-a1ae-b9da176040b6
+
 
 
 

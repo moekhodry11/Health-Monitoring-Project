@@ -1,31 +1,67 @@
-# Health-Monitoring-Project
- This repository contains the code and documentation for a health monitoring system using NodeMCU ESP8266, MAX30102 sensor, LM35 sensor, and integration with a web page and a Telegram bot. The system collects vital signs data and sends it to a web page for real-time monitoring. In case of an emergency, it alerts a Telegram bot to notify the relevant parties. Additionally, the system generates a monthly report for doctors to review the historical data.
+# IOT_project_healthmonitoring
 
-# Features:
-- Real-time monitoring of vital signs including heart rate, blood oxygen level, and temperature
-- Integration with a web page for data visualization and remote monitoring
-- Alert system that notifies a Telegram bot in case of emergency
-- Monthly report generation for doctors to analyze patient data
+This is an IoT project designed for monitoring the heart rate, oxygen level and temperature of an individual. The system consists of a MAX30100 sensor for detecting heart rate and oxygen level and a LM35 sensor for measuring temperature. The readings from the sensors are sent to a server using WebSockets protocol.
 
-# Components Used:
-- NodeMCU ESP8266: Microcontroller for data collection and communication
-- MAX30102 sensor: Measures heart rate and blood oxygen level
-- LM35 sensor: Measures temperature
-- Web page: Provides a user interface for real-time monitoring and data visualization
-- Telegram bot: Receives emergency alerts and sends notifications
+### Components Required
 
-# Folder Structure:
-- Arduino_Code: Contains the Arduino code for the NodeMCU ESP8266
-- Web_Page: Includes the HTML, CSS, and JavaScript files for the web page
-- Documentation: Contains detailed documentation, circuit diagrams, and setup instructions
+- MAX30100 sensor
+- LM35 sensor
+- NodeMcu board
+- WebSocketsClient library
+- MAX30105 library
+- heartRate library
+- ESP8266WiFi library
+- ArduinoJson library
 
-# Contributing:
-Contributions to this project are welcome! If you have any ideas, improvements, or bug fixes, feel free to submit a pull request. Please ensure that your contributions align with the project's goals and follow best practices.
+### Installation
 
-# Authors
+1. Connect the MAX30100 and LM35 sensors to the Nodemcu board.
+2. Install the required libraries (WebSocketsClient, MAX30100, heartRate, ESP8266WiFi, and ArduinoJson) in the Arduino IDE.
+3. Open the code in the Arduino IDE and upload it to the board.
+
+### Usage
+
+1. Power on the Nodemcu board and connect it to Wi-Fi.
+2. Place your index finger on the MAX30105 sensor with steady pressure.
+3. The system will detect the heart rate, oxygen level and temperature and send the readings to the server using WebSockets protocol.
+4. The server can be configured to display the readings on a dashboard or store them in a database for later analysis.
+
+### Configuration
+
+The following variables can be configured in the code:
+
+- `ssid`: Your Wi-Fi network name.
+- `password`: Your Wi-Fi networkpassword.
+- `SERVER`: The IP address of the server.
+- `PORT`: The port number of the server.
+- `URL`: The URL of the server.
+- `TempPin`: The pin number of the LM35 sensor.
+
+### Circuit Diagram 
+
+![IOT_bb](https://github.com/alaawahba13/IOT_project_healthmonitoring/assets/101985923/9eba86fd-0219-4f73-a14e-221c2d0a6254)
+
+
+### Troubleshooting
+
+If the MAX30100 sensor is not detected, check the wiring and power supply.
+
+If the Wi-Fi connection fails, make sure that the Wi-Fi network name and password are correct.
+
+If the server connection fails, check the IP address, port number, and URL of the server.
+
+If the heart rate and temperature readings are not accurate, check the placement of the MAX30105 sensor and the calibration of the LM35 sensor.
+
+### Authors
+This code was developed by 
+- [@Alaa Wahba](https://github.com/alaawahba13)
 - [@Mohamed Abdullhaleam](https://github.com/Mohamedabdullhaleam)
 - [@Fareda Elsayed]( https://github.com/FaredaElsayed)
 - [@Gehad Alaa ](https://github.com/Gehad799)
 - [@Roaa Gawish ](https://github.com/roaagawish)
-- [@Alaa Wahba](https://github.com/alaawahba13)
 - [@Mohamed Khodary](https://github.com/moekhodry11)
+- [@Mohamed Abdelzaher](https://github.com/Mohamed991-1) 
+- [@Hagar Tarek](https://github.com/Hager706)
+- [@Islam Morgan](https://github.com/retrogradex)
+
+Feel free to use and modify the code for your own purposes.

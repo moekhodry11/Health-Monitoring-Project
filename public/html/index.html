@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Health Mointoring System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon"  href="/heart-rate.png">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="http://cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.7/all/gauge.min.js"></script>
+  </head>
+  <body>
+    <div class="topnav">
+      <h1>Health Mointoring System</h1>
+    </div>
+    <div class="content">
+      <div class="card-grid">
+        <div class="card">
+          <p class="card-title">Temperature</p>
+          <canvas id="temperature"></canvas>
+        </div>
+        <div class="card">
+          <p class="card-title">HeartRate</p>
+          <canvas id="HeartRate"></canvas>
+        </div>
+        <div class="card">
+          <p class="card-title">Oxygen Level</p>
+          <canvas id="oxygen"></canvas>
+        </div>
+      </div>
+  <br>
+      <br>
+      <div class="card">
+      <div class="card-title">
+          <div> <br> Heart Beat Plotter</div>
+          <div>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js"></script>
+            <canvas id="chart"></canvas>
+          </div>
+     </div>
+    </div>
+    </div>
+    <script src="/js/script.js" ></script>
+  </body>
+</html>

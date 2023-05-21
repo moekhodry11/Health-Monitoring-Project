@@ -42,6 +42,13 @@ The following variables can be configured in the code:
 ![IOT_bb](https://github.com/alaawahba13/IOT_project_healthmonitoring/assets/101985923/9eba86fd-0219-4f73-a14e-221c2d0a6254)
 
 
+### Monthly Report
+
+
+Uploading 2023-05-21 22-29-23.mp4…
+
+
+
 ### Troubleshooting
 
 If the MAX30100 sensor is not detected, check the wiring and power supply.

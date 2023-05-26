@@ -6,6 +6,7 @@ This is an IoT project designed for monitoring the heart rate, oxygen level and 
 
 - MAX30100 sensor
 - LM35 sensor
+- OLED screen
 - NodeMcu board
 - WebSocketsClient library
 - MAX30105 library
@@ -37,19 +38,24 @@ The following variables can be configured in the code:
 - `URL`: The URL of the server.
 - `TempPin`: The pin number of the LM35 sensor.
 
-### Circuit Diagram 
-
-![IOT_bb](https://github.com/alaawahba13/IOT_project_healthmonitoring/assets/101985923/9eba86fd-0219-4f73-a14e-221c2d0a6254)
+### Circuit Diagram
 
 
-### Monthly Report
+![IOT(1)_bb](https://github.com/retrogradex/IOT_project_healthmonitoring/assets/107015185/a21b35d8-9282-4b90-a459-e89f60f59420)
+
+### Web Design 
 
 
+<<<<<<< Updated upstream
 
 https://github.com/moekhodry11/Health-Monitoring-Project/assets/86708003/4a970ce3-bf14-4133-a1ae-b9da176040b6
 
 
+=======
+<img width="957" alt="Screenshot 2023-05-23 190006" src="https://github.com/alaawahba13/IOT_project_healthmonitoring/assets/101985923/caca05e9-2f8f-4f8d-91c2-1a04189a8df9">
+>>>>>>> Stashed changes
 
+![photo_2023-05-23_18-53-37](https://github.com/alaawahba13/IOT_project_healthmonitoring/assets/101985923/55b5ecbb-38b5-4448-8ae0-72ea581b2f48)
 
 ### Troubleshooting
 
@@ -65,11 +71,11 @@ If the heart rate and temperature readings are not accurate, check the placement
 This code was developed by 
 - [@Alaa Wahba](https://github.com/alaawahba13)
 - [@Mohamed Abdullhaleam](https://github.com/Mohamedabdullhaleam)
+- [@Mohamed Abdelzaher](https://github.com/Mohamed991-1) 
 - [@Fareda Elsayed]( https://github.com/FaredaElsayed)
 - [@Gehad Alaa ](https://github.com/Gehad799)
 - [@Roaa Gawish ](https://github.com/roaagawish)
 - [@Mohamed Khodary](https://github.com/moekhodry11)
-- [@Mohamed Abdelzaher](https://github.com/Mohamed991-1) 
 - [@Hagar Tarek](https://github.com/Hager706)
 - [@Islam Morgan](https://github.com/retrogradex)
 

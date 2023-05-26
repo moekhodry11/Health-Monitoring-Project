@@ -1,88 +1,129 @@
 import schedule
 import time
-# import pandas lib as pd
 import pandas as pd
-from docx import Document
-from datetime import datetime
 import telebot
+import matplotlib.pyplot as plt
+from docx.shared import Inches
+import matplotlib.dates as mdates
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+from docx import Document
+from docx.shared import Cm
 
+# FOR GENERATING MANY WORDS
 counter = 1
+
 def extract_data_and_generate_report():
     global counter
-    # read by default 1st sheet of an excel file
-    df = pd.read_excel('data/data.xlsx')
-
-    important_data = df[['Date', 'Time', 'BPM']]
+    # read the daata sheet from excel file
+    df = pd.read_excel('data/edited_data .xlsx', sheet_name='daata')
+    # read the 'Measurement', 'Average', 'Max', 'Min' columns from our dataframe
+    important_data = df[['Measurement', 'Average', 'Max', 'Min']]
 
     # Create a new Word document
-    # Create a new Word document with a timestamp in the name
     doc_name = f'reports/report{counter}.docx'
     doc_name_print = f'report{counter}.docx'
     counter += 1
     doc = Document()
 
+    # for styling the document file
     # Add a heading to the document
-    doc.add_heading('Important Data', level=1)
+    doc.add_heading('Important Data', level=0).alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+
+
+    # for plotting BPM vs time
+    # specify x and y  axises
+    x_column = 'Time'
+    y_column = 'BPM'
+
+    # To adjust the time format as H:M:S
+    df[x_column] = pd.to_datetime(df[x_column], format='%H:%M:%S')
+
+    # create the plot   BPM AND TIME
+    plt.figure(figsize=(6, 4))
+    fig, ax = plt.subplots()
+    ax.plot(df['Index'], df[y_column])
+    ax.set_xlabel('spontinous reading')
+    ax.set_ylabel('BPM')
+    ax.set_title('BPM')
+
+    # format the time axis label to appear as H:M:S
+    # plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%H:%M:%S'))
+    # plt.gcf().autofmt_xdate()
+
+    # save the plot as a png
+    plot_filename = 'BPM_plot.png'
+    plt.savefig(plot_filename)
+
+    # create a hisogram for SPO2
+    plt.figure(figsize=(6, 4))
+    plt.hist(df['SPO2'], bins=10)
+    plt.xlabel('SPO2')
+    plt.ylabel('Frequency')
+    plt.title('Histogram')
+
+    # save the plot as a png
+    hist_filename = "histogram.png"
+    plt.savefig(hist_filename)
 
     # Convert the important data to a table in Word
     table = doc.add_table(1, len(important_data.columns))
-    table.style = 'Table Grid'
+    # style the heading of the table
+    table.style = 'Light List Accent 1'
+    # change the table dimensions
+    new_width = Cm(10)
+    change_table_dimensions(table, new_width)
 
-    # # Add the header rows.
+    # Add the header rows.
     for j in range(len(important_data.columns)):
-        table.cell(0,j).text = important_data.columns[j]
+        table.cell(0, j).text = important_data.columns[j]
 
-
-    # # Add the data rows.
-    for i in range(len(important_data)):
-        # # Add a row to the table
+    # fill the table with the data
+    for i in range(3):
+        # Add a row to the table
         row_cells = table.add_row().cells
-        # # Add the data from the dataframe
+        # fill the data
         for j in range(len(important_data.columns)):
-            row_cells[j].text = str(important_data.values[i,j])
+            row_cells[j].text = str(important_data.values[i, j])
 
 
-    #print(important_data)
+    # add the BPM plot to the doc file
+    paragraph = doc.add_paragraph()
+    run = paragraph.add_run()
+    run.add_picture(plot_filename, width=Inches(5))
+
+    # add the SPO2 Histogram to the doc file
+    paragraph = doc.add_paragraph()
+    his = paragraph.add_run()
+    his.add_picture(hist_filename, width=Inches(5))
+
+    # print that the doc file is generated in the console
     print(doc_name_print + " is generated")
 
     # Save the Word document
     doc.save(doc_name)
 
-    # # send word document to email
-    # import smtplib
-    # from email.message import EmailMessage
-    # msg = EmailMessage()
-    # msg['Subject'] = 'Report'
-    # msg['From'] = 'sender@gmail'
-    # msg['To'] = 'receiver@gmail'
-    # msg.set_content('This is a plain text email')
-    # msg.add_alternative("""\
-    # <!DOCTYPE html>
-    # <html>
-    #     <body>
-    #         <h1 style="color:SlateGray;">This is an HTML Email!</h1>
-    #     </body>
-    # </html>
-    # """, subtype='html')
-    # with open(doc_name, 'rb') as f:
-    #     file_data = f.read()
-    #     file_name = f.name
-    # msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename=file_name)
-    # with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-    #     smtp.login('sender@gmail', 'password')
-    #     smtp.send_message(msg)
-    # print("Email sent successfully")
-
-    # # send word document to telegram
+    # send word document to telegram
     bot = telebot.TeleBot("6140302269:AAG5rMISL5xamoIG5dnJcDuaJOK9qt1vWQU")
-    chat_id = "819901463"
+    chat_id = "639643824"
     doc = open(doc_name, 'rb')
     bot.send_document(chat_id, doc)
     print("Document sent successfully")
 
-# Schedule the script to run every 5 minutes
-schedule.every(10).seconds.do(extract_data_and_generate_report)
 
+# Schedule the script to run every 1 sec
+schedule.every(1).seconds.do(extract_data_and_generate_report)
+
+
+def change_table_dimensions(table, width):
+    # Change the table width
+    table.width = width
+
+    # Adjust the cell widths
+    for row in table.rows:
+        for cell in row.cells:
+            cell.width = width / len(row.cells)
+
+# to keep the code running
 while True:
     schedule.run_pending()
     time.sleep(1)

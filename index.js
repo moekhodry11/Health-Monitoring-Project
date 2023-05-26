@@ -26,7 +26,7 @@ wss.on('connection', (ws) => {
   
   ws.on('message', (msg) => {
     Broadcast(msg.toString('utf8'));
-    const txtPath = 'D:/Projects/IOT_project_healthmonitoring/New Text Document.txt';
+    const txtPath = 'E:/college/3rd electric/2nd term/IOT_project/project/IOT_project_healthmonitoring/New Text Document.txt';
     const data = JSON.parse(msg.toString('utf8'));
     const now = new Date();
     var date = now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate();

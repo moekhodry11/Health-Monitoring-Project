@@ -1,38 +1,79 @@
 html {
-    font-family: Arial, Helvetica, sans-serif; 
-    display: inline-block; 
-    text-align: center;
-  }
-  h1 {
-    font-size: 1.8rem; 
-    color: white;
-  }
-  p { 
-    font-size: 1.4rem;
-  }
-  .topnav { 
-    overflow: hidden; 
-    background-color: #0A1128;
-  }
-  body {  
-    margin: 0;
-  }
-  .content { 
-    padding: 5%;
-  }
-  .card-grid { 
-    max-width: 1000px; 
-    margin: 0 auto; 
-    display: grid; 
-    grid-gap: 2rem; 
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-  .card { 
-    background-color: white; 
-    box-shadow: 2px 2px 12px 1px rgba(140,140,140,.5);
-  }
-  .card-title { 
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #034078
-  }
+  font-family: Arial, Helvetica, sans-serif; 
+  display: inline-block; 
+  text-align: center;
+}
+h1 {
+  font-size: 1.8rem; 
+  color: white;
+}
+p { 
+  font-size: 1.4rem;
+}
+.topnav { 
+  overflow: hidden; 
+  background-color: #0A1128;
+}
+body {  
+  margin: 0;
+}
+.content { 
+  padding: 5%;
+}
+.card-grid { 
+  max-width: 1000px; 
+  margin: 0 auto; 
+  display: grid; 
+  grid-gap: 2rem; 
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.card { 
+  background-color: white; 
+  box-shadow: 2px 2px 12px 1px rgba(140,140,140,.5);
+}
+.card-title { 
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #034078
+}
+
+.container{
+    display: flex;
+    width: 300px;
+    padding: 50px 0;
+    border-radius: 8px;
+    background: #fff;
+    row-gap: 30px;
+    flex-direction: column;
+    align-items: center;
+}
+.circular-progress{
+    position: relative;
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    background: conic-gradient(#0A1128 3.6deg, #ededed 0deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.circular-progress::before{
+    content: "";
+    position: absolute;
+    height: 210px;
+    width: 210px;
+    border-radius: 50%;
+    background-color: #fff;
+}
+.progress-value{
+    position: relative;
+    font-size: 40px;
+    font-weight: 600;
+    color: #0A1128;
+    ;
+}
+.text{
+    font-size: 15px;
+    font-weight: 500;
+    color: #606060;
+}

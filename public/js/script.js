@@ -48,92 +48,7 @@ var gaugeTemp = new LinearGauge({
   barWidth: 10,
 }).draw();
   
-// Create Heart Rate Gauge
-var gaugeHR = new RadialGauge({
-  renderTo: 'HeartRate',
-  width: 300,
-  height: 300,
-  units: "BPM ",
-  minValue: 0,
-  maxValue: 160,
-  colorValueBoxRect: "#049faa",
-  colorValueBoxRectEnd: "#049faa",
-  colorValueBoxBackground: "#f1fbfc",
-  valueInt: 2,
- 
-  
-  strokeTicks: true,
-  highlights: [
-      {
-          "from": 120,
-          "to": 160,
-          "color": "#03C0C1"
-      }
-  ],
-  colorPlate: "#fff",
-  borderShadowWidth: 0,
-  borders: false,
-  needleType: "",
-  colorNeedle: "#007F80",
-  colorNeedleEnd: "#007F80",
-  needleWidth: 2,
-  needleCircleSize: 3,
-  colorNeedleCircleOuter: "#007F80",
-  needleCircleOuter: true,
-  needleCircleInner: false,
-  animationDuration: 1500,
-  animationRule: "linear"
-}).draw();
 
-// Create SP02 Gauge
-var gaugeSP02 = new RadialGauge({
-  renderTo: 'oxygen',
-  width: 300,
-  height: 300,
-  units: "SP02 (%)",
-  minValue: 0,
-  maxValue: 100,
-  colorValueBoxRect: "#049faa",
-  colorValueBoxRectEnd: "#049faa",
-  colorValueBoxBackground: "#f1fbfc",
-  valueInt: 2,
-  majorTicks: [
-      "0",
-      "10",
-      "20",
-      "30",
-      "40",
-      "50",
-      "60",
-      "70",
-      "80",
-      "90",
-      "100"
-
-  ],
-  minorTicks: 4,
-  strokeTicks: true,
-  highlights: [
-      {
-          "from": 0,
-          "to": 80,
-          "color": "#03C0C1"
-      }
-  ],
-  colorPlate: "#fff",
-  borderShadowWidth: 0,
-  borders: false,
-  needleType: "line",
-  colorNeedle: "#007F80",
-  colorNeedleEnd: "#007F80",
-  needleWidth: 2,
-  needleCircleSize: 3,
-  colorNeedleCircleOuter: "#007F80",
-  needleCircleOuter: true,
-  needleCircleInner: false,
-  animationDuration: 1500,
-  animationRule: "linear"
-}).draw();
 
 src="https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js"
 const chart = new Chart(document.getElementById('chart'), {
@@ -155,40 +70,63 @@ const chart = new Chart(document.getElementById('chart'), {
     },
   });
 
+  let previousMinute = null;
+  circularProgress1 = document.getElementById("chr");
+  progressValue1 = document.getElementById("hr");
+  let progressStartValue1 = 0,    
+  progressEndValue1 = 150;   
+
+  circularProgress2 = document.getElementById("cspo2");
+  progressValue2 = document.getElementById("spo2");
+  let progressStartValue2 = 0,    
+  progressEndValue2 = 100;  
 
   var HOST = location.origin.replace(/^http/, 'ws');
-	var ws = new WebSocket(HOST); //#A
+	var ws = new WebSocket(HOST); 
 
+  var Temperature, HeartRate, SPO2;
   ws.onopen=function(){
     console.log('Connected to server')
   }
 
   ws.onmessage=function(event){
     const data = JSON.parse(event.data);
-    const Temperature = data.value1;
-    const HeartRate = data.value2;
-    const SPO2 = data.value3;
+     Temperature = data.value1;
+     HeartRate = data.value2;
+     SPO2 = data.value3;
  
     console.log(Temperature);
     console.log(HeartRate);
     console.log(SPO2);
-   
-    gaugeTemp.value = Temperature;
-    gaugeHR.value = HeartRate;
-    gaugeSP02.value = SPO2; 
+
+    progressStartValue1 = parseInt(HeartRate);
+    progressStartValue2 = parseInt(SPO2);
+    gaugeTemp.value = Temperature ;
+  
 
  
     chart.data.labels.push(new Date().toLocaleTimeString());
     chart.data.datasets[0].data.push(parseFloat(HeartRate));
     chart.update();
+   
+    checkMinute()
  
-    function checkTemp() {
-      if (parseInt(Temperature) >= 40) {
-        sendTelegramMessage("Warning!!! , Temberature is : "+ Temperature +" , Heart rate is : "+HeartRate);
-      }
+  }
+    
+  function checkValues() {
+    if (parseInt(Temperature) >= 37 || parseInt(HeartRate) >= 120 || parseInt(HeartRate) <60 || parseInt(SPO2) >= 100 || parseInt(SPO2) < 80)  {
+      sendTelegramMessage("Warning!!! , Temperature is : "+ Temperature +" , Heart rate is : "+HeartRate +" , Oxygen level is : "+ SPO2 );
     }
- 
-  progressBar1.addEventListener("input", checkTemp());
+  }
+  
+  function checkMinute() {
+    const now = new Date();
+    const currentMinute = now.getMinutes();
+  
+    if (currentMinute !== previousMinute) {
+      checkValues()
+      previousMinute = currentMinute; 
+    }
   }
  
   function sendTelegramMessage(message) {
@@ -206,3 +144,13 @@ const chart = new Chart(document.getElementById('chart'), {
         console.error(error);
       });
   } 
+
+  let progress1 = setInterval(() => {  
+    progressValue1.textContent = `${progressStartValue1}`
+    circularProgress1.style.background = `conic-gradient(#021042 ${progressStartValue1 * 2.4}deg, #ededed 0deg)` 
+  });
+
+  let progress2 = setInterval(() => {  
+    progressValue2.textContent = `${progressStartValue2}%`
+    circularProgress2.style.background = `conic-gradient(#021042 ${progressStartValue2 * 3.6}deg, #ededed 0deg)` 
+  });

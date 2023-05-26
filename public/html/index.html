@@ -3,7 +3,7 @@
   <head>
     <title>Health Mointoring System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon"  href="/heart-rate.png">
+    <link rel="icon"  href="heart-rate.png">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
     <script src="http://cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.7/all/gauge.min.js"></script>
@@ -20,11 +20,24 @@
         </div>
         <div class="card">
           <p class="card-title">HeartRate</p>
-          <canvas id="HeartRate"></canvas>
+          <div class="container">
+            <div class="circular-progress" id ="chr">
+                <span class="progress-value" id="hr">0</span>
+            </div>
+            <span class="text">BPM </span>
+        </div>
         </div>
         <div class="card">
           <p class="card-title">Oxygen Level</p>
-          <canvas id="oxygen"></canvas>
+          <div class="container">
+
+            <div class="circular-progress" id ="cspo2">
+                <span class="progress-value" id ="spo2">0%</span>
+                
+            </div>
+            <span class="text">SPO2 %</span>
+          </div>
+              </div>
         </div>
       </div>
   <br>
@@ -36,9 +49,14 @@
             <script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js"></script>
             <canvas id="chart"></canvas>
           </div>
+          
      </div>
     </div>
-    </div>
+    <br>
+    <hr>
+  
+
     <script src="/js/script.js" ></script>
   </body>
+
 </html>
